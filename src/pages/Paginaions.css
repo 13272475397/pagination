@@ -1,0 +1,26 @@
+.pagination button {
+    display: inline-block;
+    min-width: 80px;
+    margin: 0 8px;
+
+}
+
+.pagination ul {
+    display: inline-block;
+    padding-left: 0px;
+    margin-left: -8px;
+}
+
+.pagination ul li {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #b4b4b4;
+    margin-left: 8px;
+    list-style: none;
+}
+
+.pagination ul li.active{
+    border-color: #336699;
+    color: red;
+}

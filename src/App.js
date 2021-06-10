@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Paginations from './pages/Paginaions.js'
+import UsePagination from './pages/PageHook'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const data = require("./data.json");
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showModel: data.slice(0, 10)
+    }
+  }
+  change = (page, pageSize) => {
+    let showModel = data.slice((page - 1) * pageSize, page * pageSize);
+    this.setState({
+      showModel
+    })
+
+  }
+  render() {
+
+    return (
+      <div className="App">
+        <div>
+          {
+            this.state.showModel.map((item, i) => (
+              <p key={i}>{i + 1}:{item.label}</p>
+            ))
+          }
+        </div>
+        <UsePagination
+          pageSize={10}
+          total={data.length}
+          page={1}
+          interval={5000}
+          onChange={this.change}
+        />
+
+        <Paginations
+          pageSize={10}
+          total={data.length}
+          page={1}
+          interval={5000}
+          onChange={this.change}
+        />
+      </div>
+    );
+  }
+
 }
 
 export default App;
