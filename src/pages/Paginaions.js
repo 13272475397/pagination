@@ -21,14 +21,19 @@ class Paginations extends React.Component {
         this.setTimmer();
         this.getPageLength();
     }
+    componentWillUnmount() {
+        clearInterval(this.timmer)
+    }
 
-    setTimmer(){
+
+    setTimmer() {
         clearInterval(this.timmer)
         this.timmer = setInterval(() => {
-            if(this.state.activePage == this.state.pageLength) this.state.activePage = 0
+            if (this.state.activePage == this.state.pageLength) this.state.activePage = 0
             this.setState({
                 activePage: this.state.activePage + 1
             })
+            this.props.onChange && this.props.onChange(this.state.activePage,this.state.pageSize)
         }, this.state.interval)
 
     }
@@ -52,17 +57,17 @@ class Paginations extends React.Component {
         this.setState({
             activePage: val
         })
+        this.props.onChange && this.props.onChange(val,this.state.pageSize)
         this.setTimmer();
-        this.props.change && this.props.change(val)
     }
 
-    pre = () => {
+    pre = (e) => {
         if (this.state.activePage > 1) {
             this.changePage(this.state.activePage - 1)
         }
         this.setTimmer();
     }
-    next = () => {
+    next = (e) => {
         if (this.state.activePage < this.state.pageLength) {
             this.changePage(this.state.activePage + 1)
         }
@@ -72,9 +77,10 @@ class Paginations extends React.Component {
     changePageSize = (e) => {
         this.setState({
             pageLength: Math.ceil(this.state.total / e.target.value),
-            pageSize: e.target.value,
+            pageSize: Number(e.target.value),
             activePage: 1
         })
+        this.props.onChange && this.props.onChange(1,e. target. value)
         this.setTimmer();
     }
 

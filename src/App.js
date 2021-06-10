@@ -29,13 +29,13 @@ class App extends Component {
             ))
           }
         </div>
-        <UsePagination
+        {/* <UsePagination
           pageSize={10}
           total={data.length}
           page={1}
           interval={5000}
           onChange={this.change}
-        />
+        /> */}
 
         <Paginations
           pageSize={10}
